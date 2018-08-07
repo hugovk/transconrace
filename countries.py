@@ -126,6 +126,7 @@ COUNTRIES = {
         "SK",
         "ME",
         "AL",
+        "GR",
     ],
 }
 
