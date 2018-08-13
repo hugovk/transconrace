@@ -8,7 +8,7 @@ python gpx_countries.py route.gpx
 import argparse
 import json
 
-import gpxpy  # # pip install gpxy
+import gpxpy  # # pip install gpxy lxml
 import gpxpy.gpx
 from shapely.geometry import Point, shape  # pip install shapely
 from shapely.prepared import prep

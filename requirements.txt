@@ -1,3 +1,4 @@
+lxml
 gpxpy
 pytablewriter
 shapely
