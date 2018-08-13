@@ -3,7 +3,7 @@
 """
 Create a Markdown table of countries visited by the Transcontinental Race.
 
-python countries.py --flag > README.md
+python tcr_countries.py --flag > README.md
 """
 import argparse
 import datetime
