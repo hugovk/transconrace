@@ -129,6 +129,7 @@ COUNTRIES = {
         "GR",
         "RS",
         "XK",
+        "MK",
     ],
 }
 
