@@ -34,6 +34,8 @@ if __name__ == "__main__":
 
     print("Loading countries")
     # https://github.com/datasets/geo-countries
+    # All data is licensed under the Open Data Commons Public Domain Dedication and
+    # License. Thanks to Natural Earth, Lexman and the Open Knowledge Foundation.
     with open("countries.geojson") as geojson_file:
         data = json.load(geojson_file)
 
