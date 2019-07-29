@@ -144,6 +144,7 @@ FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
 def timestamp():
     """Print a timestamp and the filename with path"""
     stamp = datetime.datetime.utcnow().strftime("%A, %d %B %Y, %H:%M UTC")
+    print()
     print("Last updated {} by {}".format(stamp, __file__))
 
 
