@@ -8,11 +8,15 @@ python gpx_countries.py route.gpx
 import argparse
 import glob
 import json
+import sys
 
 import gpxpy  # # pip install gpxy lxml
 import gpxpy.gpx
 from shapely.geometry import Point, shape  # pip install shapely
 from shapely.prepared import prep
+from pprint import pprint
+
+all_results = {}
 
 
 # https://stackoverflow.com/a/46589405/724176
@@ -23,6 +27,13 @@ def get_country(lon, lat):
             return country
 
     return "unknown"
+
+
+def borders_total_unique(visited):
+    total = len(visited)
+    borders = total - 1
+    unique = len(set(visited))
+    return borders, total, unique
 
 
 def process_gpx(filename):
@@ -36,6 +47,8 @@ def process_gpx(filename):
         for segment in track.segments:
             for point in segment.points:
                 country = get_country(point.longitude, point.latitude)
+                if country == "unknown":
+                    continue
                 if len(visited) == 0 or country != visited[-1]:
                     new = country not in visited
                     marker = "*" if new else ""
@@ -58,9 +71,29 @@ def process_gpx(filename):
                                 marker,
                             )
                         )
-    print("Unique country visits:\t{}".format(len(set(visited))))
-    print("Total country visits:\t{}".format(len(visited)))
-    print("Borders crossed:\t{}".format(len(visited) - 1))
+    borders, total, unique = borders_total_unique(visited)
+    print("Unique country visits:\t{}".format(unique))
+    print("Total country visits:\t{}".format(total))
+    print("Borders crossed:\t{}".format(borders))
+    return visited
+
+
+def is_smaller(new, min, new_name, min_names):
+    if new < min:
+        min = new
+        min_names = [new_name]
+    elif new == min:
+        min_names.append(new_name)
+    return min, min_names
+
+
+def is_bigger(new, max, new_name, max_names):
+    if new > max:
+        max = new
+        max_names = [new_name]
+    elif new == max:
+        max_names.append(new_name)
+    return max, max_names
 
 
 if __name__ == "__main__":
@@ -73,6 +106,11 @@ if __name__ == "__main__":
         "-u", "--unique", action="store_true", help="Only show unique countries"
     )
     args = parser.parse_args()
+
+    filenames = glob.glob(args.gpx)
+    print("GPX files found:\t{}".format(len(filenames)))
+    if not filenames:
+        sys.exit("No files match {}".format(args.gpx))
 
     print("Loading countries")
     # https://github.com/datasets/geo-countries
@@ -89,8 +127,78 @@ if __name__ == "__main__":
 
     print("Countries loaded:\t{}".format(len(countries)))
 
-    filenames = glob.glob(args.gpx)
-    print("GPX files found:\t{}".format(len(filenames)))
-
     for filename in filenames:
-        process_gpx(filename)
+        visited = process_gpx(filename)
+        all_results[filename] = visited
+
+    if len(all_results) > 1:
+        min_borders = sys.maxsize
+        min_borders_filenames = []
+        min_total_countries = sys.maxsize
+        min_total_countries_filenames = []
+        min_unique_countries = sys.maxsize
+        min_unique_countries_filenames = []
+        max_borders = 0
+        max_borders_filenames = []
+        max_total_countries = 0
+        max_total_countries_filenames = []
+        max_unique_countries = 0
+        max_unique_countries_filenames = []
+
+        for filename, visited in all_results.items():
+            borders, total, unique = borders_total_unique(visited)
+
+            max_borders, max_borders_filenames = is_bigger(
+                borders, max_borders, filename, max_borders_filenames
+            )
+            max_total_countries, max_total_countries_filenames = is_bigger(
+                total, max_total_countries, filename, max_total_countries_filenames
+            )
+            max_unique_countries, max_unique_countries_filenames = is_bigger(
+                unique, max_unique_countries, filename, max_unique_countries_filenames
+            )
+
+            # Some tracks start late or end early
+            if "Belgium" not in visited or "Greece" not in visited:
+                continue
+            min_borders, min_borders_filenames = is_smaller(
+                borders, min_borders, filename, min_borders_filenames
+            )
+            min_total_countries, min_total_countries_filenames = is_smaller(
+                total, min_total_countries, filename, min_total_countries_filenames
+            )
+            min_unique_countries, min_unique_countries_filenames = is_smaller(
+                unique, min_unique_countries, filename, min_unique_countries_filenames
+            )
+
+        print()
+        print(
+            "Most unique country visits:\t{}\t{}".format(
+                max_unique_countries, max_unique_countries_filenames
+            )
+        )
+        print(
+            "Most total country visits:\t{}\t{}".format(
+                max_total_countries, max_total_countries_filenames
+            )
+        )
+        print(
+            "Most borders crossed:\t\t{}\t{}".format(max_borders, max_borders_filenames)
+        )
+
+        print()
+        print(
+            "Least unique country visits:\t{}\t{}".format(
+                min_unique_countries, min_unique_countries_filenames
+            )
+        )
+        print(
+            "Least total country visits:\t{}\t{}".format(
+                min_total_countries, min_total_countries_filenames
+            )
+        )
+        print(
+            "Least borders crossed:\t\t{}\t{}".format(
+                min_borders, min_borders_filenames
+            )
+        )
