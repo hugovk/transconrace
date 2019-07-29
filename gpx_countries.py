@@ -37,7 +37,7 @@ def borders_total_unique(visited):
 
 
 def process_gpx(filename):
-    print("Loading GPX: {}".format(filename))
+    print(f"Loading GPX: {filename}")
     with open(filename) as gpx_file:
         gpx = gpxpy.parse(gpx_file)
 
@@ -72,9 +72,9 @@ def process_gpx(filename):
                             )
                         )
     borders, total, unique = borders_total_unique(visited)
-    print("Unique country visits:\t{}".format(unique))
-    print("Total country visits:\t{}".format(total))
-    print("Borders crossed:\t{}".format(borders))
+    print(f"Unique country visits:\t{unique}")
+    print(f"Total country visits:\t{total}")
+    print(f"Borders crossed:\t{borders}")
     return visited
 
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     filenames = glob.glob(args.gpx)
     print("GPX files found:\t{}".format(len(filenames)))
     if not filenames:
-        sys.exit("No files match {}".format(args.gpx))
+        sys.exit(f"No files match {args.gpx}")
 
     print("Loading countries")
     # https://github.com/datasets/geo-countries
@@ -182,9 +182,7 @@ if __name__ == "__main__":
                 max_total_countries, max_total_countries_filenames
             )
         )
-        print(
-            "Most borders crossed:\t\t{}\t{}".format(max_borders, max_borders_filenames)
-        )
+        print(f"Most borders crossed:\t\t{max_borders}\t{max_borders_filenames}")
 
         print()
         print(

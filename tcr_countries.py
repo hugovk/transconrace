@@ -131,10 +131,7 @@ COUNTRIES = {
         "RS",
         "XK",
     ],
-    "7. 2019": [
-        "BG",
-        "RS",
-    ],
+    "7. 2019": ["BG", "RS"],
 }
 
 
@@ -145,7 +142,7 @@ def timestamp():
     """Print a timestamp and the filename with path"""
     stamp = datetime.datetime.utcnow().strftime("%A, %d %B %Y, %H:%M UTC")
     print()
-    print("Last updated {} by {}".format(stamp, __file__))
+    print(f"Last updated {stamp} by {__file__}")
 
 
 def add_total_countries(dict_of_lists):
@@ -165,7 +162,7 @@ def add_flags(dict_of_lists):
     for _, countries in dict_of_lists.items():
         for i, country in enumerate(countries):
             flag = FLAG.format(country.lower())
-            countries[i] = "{} {}".format(flag, country)
+            countries[i] = f"{flag} {country}"
 
     return dict_of_lists
 

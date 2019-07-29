@@ -3,14 +3,12 @@ language: python
 python:
  - "3.6"
 
-sudo: false
-
 install:
  - pip install -U black flake8 flake8-assertive flake8-bugbear flake8-comprehensions
 
 script:
  # Static analysis
- - flake8 .
+ - flake8
  - black --check --diff .
 
 matrix:
