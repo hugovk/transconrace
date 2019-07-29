@@ -14,7 +14,7 @@ import gpxpy  # # pip install gpxy lxml
 import gpxpy.gpx
 from shapely.geometry import Point, shape  # pip install shapely
 from shapely.prepared import prep
-from pprint import pprint
+# from pprint import pprint
 
 all_results = {}
 
