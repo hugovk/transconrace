@@ -131,7 +131,7 @@ COUNTRIES = {
         "RS",
         "XK",
     ],
-    "7. 2019": ["BG", "RS", "HR", "XK", "BA", "SI", "AT", "IT", "LI", "CH", "FR"],
+    "7. 2019": ["BG", "RS", "HR", "XK", "BA", "SI", "AT", "IT", "LI", "CH", "FR", "HU"],
 }
 
 
