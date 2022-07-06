@@ -55,20 +55,11 @@ def process_gpx(filename):
                     if args.unique:
                         if new:
 
-                            print(
-                                "{:2d}. {} {}".format(
-                                    len(set(visited)), point.time, country
-                                )
-                            )
+                            print(f"{len(set(visited)):2d}. {point.time} {country}")
                     else:
                         print(
-                            "{:2d}. {:2d}. {} {}{}".format(
-                                len(visited),
-                                len(set(visited)),
-                                point.time,
-                                country,
-                                marker,
-                            )
+                            f"{len(visited):2d}. {len(set(visited)):2d}. "
+                            f"{point.time} {country}{marker}"
                         )
     borders, total, unique = borders_total_unique(visited)
     print(f"Unique country visits:\t{unique}")
@@ -172,30 +163,22 @@ if __name__ == "__main__":
 
         print()
         print(
-            "Most unique country visits:\t{}\t{}".format(
-                max_unique_countries, max_unique_countries_filenames
-            )
+            f"Most unique country visits:\t"
+            f"{max_unique_countries}\t{max_unique_countries_filenames}"
         )
         print(
-            "Most total country visits:\t{}\t{}".format(
-                max_total_countries, max_total_countries_filenames
-            )
+            f"Most total country visits:\t"
+            f"{max_total_countries}\t{max_total_countries_filenames}"
         )
         print(f"Most borders crossed:\t\t{max_borders}\t{max_borders_filenames}")
 
         print()
         print(
-            "Least unique country visits:\t{}\t{}".format(
-                min_unique_countries, min_unique_countries_filenames
-            )
+            f"Least unique country visits:\t"
+            f"{min_unique_countries}\t{min_unique_countries_filenames}"
         )
         print(
-            "Least total country visits:\t{}\t{}".format(
-                min_total_countries, min_total_countries_filenames
-            )
+            f"Least total country visits:\t"
+            f"{min_total_countries}\t{min_total_countries_filenames}"
         )
-        print(
-            "Least borders crossed:\t\t{}\t{}".format(
-                min_borders, min_borders_filenames
-            )
-        )
+        print(f"Least borders crossed:\t\t{min_borders}\t{min_borders_filenames}")
