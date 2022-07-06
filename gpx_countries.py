@@ -107,7 +107,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     filenames = glob.glob(args.gpx)
-    print("GPX files found:\t{}".format(len(filenames)))
+    print(f"GPX files found:\t{len(filenames)}")
     if not filenames:
         sys.exit(f"No files match {args.gpx}")
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
         country = feature["properties"]["ADMIN"]
         countries[country] = prep(shape(geom))
 
-    print("Countries loaded:\t{}".format(len(countries)))
+    print(f"Countries loaded:\t{len(countries)}")
 
     for filename in filenames:
         visited = process_gpx(filename)
