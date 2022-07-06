@@ -7,6 +7,7 @@ python tcr_countries.py --flag > README.md
 """
 import argparse
 import datetime
+import os
 
 import pytablewriter  # pip install pytablewriter
 
@@ -142,7 +143,7 @@ def timestamp():
     """Print a timestamp and the filename with path"""
     stamp = datetime.datetime.utcnow().strftime("%A, %d %B %Y, %H:%M UTC")
     print()
-    print(f"Last updated {stamp} by {__file__}")
+    print(f"Last updated {stamp} by {os.path.basename(__file__)}")
 
 
 def add_total_countries(dict_of_lists):
