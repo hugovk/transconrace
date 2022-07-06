@@ -190,13 +190,13 @@ def pad_list_of_lists(list_of_lists):
     """
     length = 0
     # Find longest list length
-    for l in list_of_lists:
-        length = max(len(l), length)
+    for list_ in list_of_lists:
+        length = max(len(list_), length)
 
     new = []
-    for l in list_of_lists:
+    for list_ in list_of_lists:
         # https://stackoverflow.com/a/3438818/724176
-        new.append(l + ["  "] * (length - len(l)))
+        new.append(list_ + ["  "] * (length - len(list_)))
 
     return new
 
