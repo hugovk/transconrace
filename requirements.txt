@@ -1,4 +1,4 @@
 lxml
 gpxpy
-pytablewriter
+prettytable
 shapely

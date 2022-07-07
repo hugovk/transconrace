@@ -9,7 +9,7 @@ import argparse
 import datetime
 import os
 
-import pytablewriter  # pip install pytablewriter
+from prettytable import MARKDOWN, PrettyTable
 
 # from pprint import pprint
 
@@ -238,10 +238,10 @@ if __name__ == "__main__":
         " has collectively visited, roughly in order of first entry.\n"
     )
 
-    writer = pytablewriter.MarkdownTableWriter()
-    writer.header_list = list_of_lists[0]
-    writer.value_matrix = list_of_lists[1:]
-    writer.margin = 1
-    writer.write_table()
+    table = PrettyTable()
+    table.set_style(MARKDOWN)
+    table.field_names = list_of_lists[0]
+    table.add_rows(list_of_lists[1:])
+    print(table)
 
     timestamp()
