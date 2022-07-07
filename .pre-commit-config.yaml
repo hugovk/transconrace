@@ -35,3 +35,12 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: update-readme
+        name: Update README
+        entry: ./update.sh
+        language: script
+        pass_filenames: false
+        files: ^tcr_countries.py$
