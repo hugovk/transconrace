@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
 """
-Create a Markdown table of countries visited by the Transcontinental Race.
+Create a Markdown table of countries visited by the Transcontinental Race
+and write to README.md.
 
-python tcr_countries.py --flag > README.md
+python tcr_countries.py --flag
 """
 import argparse
 import datetime
@@ -139,11 +140,10 @@ COUNTRIES = {
 FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
 
 
-def timestamp():
-    """Print a timestamp and the filename with path"""
+def timestamp() -> str:
+    """Create a timestamp and the filename with path"""
     stamp = datetime.datetime.utcnow().strftime("%A, %d %B %Y, %H:%M UTC")
-    print()
-    print(f"Last updated {stamp} by {os.path.basename(__file__)}")
+    return f"Last updated {stamp} by {os.path.basename(__file__)}"
 
 
 def add_total_countries(dict_of_lists):
@@ -209,7 +209,30 @@ def add_total_index(list_of_lists):
     return list_of_lists
 
 
-if __name__ == "__main__":
+def update_readme(new_table: str) -> None:
+
+    with open("README.md") as f:
+        contents = f.read()
+
+    before, delim1, remainder = contents.partition(
+        "[start_generated]: # (start_generated)\n"
+    )
+    old_table, delim2, _ = remainder.partition("[end_generated]: # (end_generated)\n")
+
+    if new_table.strip() == old_table.strip():
+        print("No changes to README.md")
+        return
+
+    output = (
+        before + delim1 + "\n" + new_table + "\n\n" + delim2 + "\n" + timestamp() + "\n"
+    )
+
+    with open("README.md", "w") as f:
+        f.write(output)
+    print("README.md updated")
+
+
+def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
@@ -231,17 +254,13 @@ if __name__ == "__main__":
     # Rotate list of lists
     list_of_lists = list(map(list, zip(*list_of_lists)))
 
-    print("# Transcontinental Race")
-    print()
-    print(
-        "Countries the [Transcontinental Race](https://www.transcontinental.cc/)"
-        " has collectively visited, roughly in order of first entry.\n"
-    )
-
     table = PrettyTable()
     table.set_style(MARKDOWN)
     table.field_names = list_of_lists[0]
     table.add_rows(list_of_lists[1:])
-    print(table)
 
-    timestamp()
+    update_readme(table.get_string())
+
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,9 @@
 # Transcontinental Race
 
-Countries the [Transcontinental Race](https://www.transcontinental.cc/) has collectively visited, roughly in order of first entry.
+Countries the [Transcontinental Race](https://www.transcontinental.cc/)
+has collectively visited, roughly in order of first entry.
+
+[start_generated]: # (start_generated)
 
 |    |                               1. 2013                                |                               2. 2014                                |                               3. 2015                                |                               4. 2016                                |                               5. 2017                                |                               6. 2018                                |                               7. 2019                                |                                 All                                  |
 |:--:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|
@@ -32,4 +35,6 @@ Countries the [Transcontinental Race](https://www.transcontinental.cc/) has coll
 | 26 |                                                                      |                                                                      |                                                                      |                                                                      |                                                                      |                                                                      |                                                                      | ![](https://hugovk.github.io/flag-icon/png/16/country-4x3/cz.png) CZ |
 | 27 |                                                                      |                                                                      |                                                                      |                                                                      |                                                                      |                                                                      |                                                                      | ![](https://hugovk.github.io/flag-icon/png/16/country-4x3/pl.png) PL |
 
-Last updated Thursday, 07 July 2022, 07:54 UTC by tcr_countries.py
+[end_generated]: # (end_generated)
+
+Last updated Thursday, 07 July 2022, 09:22 UTC by tcr_countries.py

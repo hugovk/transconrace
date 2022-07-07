@@ -35,3 +35,13 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: update-readme
+        name: Update README
+        entry: python3 tcr_countries.py --flag
+        language: python
+        additional_dependencies: [prettytable]
+        pass_filenames: false
+        files: ^tcr_countries.py$
