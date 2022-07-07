@@ -210,7 +210,7 @@ def add_total_index(list_of_lists):
     return list_of_lists
 
 
-if __name__ == "__main__":
+def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
@@ -255,3 +255,7 @@ if __name__ == "__main__":
 
     with open("README.md", "w") as f:
         f.write(out)
+
+
+if __name__ == "__main__":
+    main()
