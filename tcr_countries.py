@@ -9,7 +9,6 @@ python tcr_countries.py --flag
 import argparse
 import datetime
 import os
-import textwrap
 
 from prettytable import MARKDOWN, PrettyTable
 
@@ -210,6 +209,29 @@ def add_total_index(list_of_lists):
     return list_of_lists
 
 
+def update_readme(new_table: str) -> None:
+
+    with open("README.md") as f:
+        contents = f.read()
+
+    before, delim1, remainder = contents.partition(
+        "[start_generated]: # (start_generated)\n"
+    )
+    old_table, delim2, _ = remainder.partition("[end_generated]: # (end_generated)\n")
+
+    if new_table.strip() == old_table.strip():
+        print("No changes to README.md")
+        return
+
+    output = (
+        before + delim1 + "\n" + new_table + "\n\n" + delim2 + "\n" + timestamp() + "\n"
+    )
+
+    with open("README.md", "w") as f:
+        f.write(output)
+    print("README.md updated")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -232,29 +254,12 @@ def main() -> None:
     # Rotate list of lists
     list_of_lists = list(map(list, zip(*list_of_lists)))
 
-    intro = """
-    # Transcontinental Race
-
-    Countries the [Transcontinental Race](https://www.transcontinental.cc/)
-    has collectively visited, roughly in order of first entry.
-
-    """
-
     table = PrettyTable()
     table.set_style(MARKDOWN)
     table.field_names = list_of_lists[0]
     table.add_rows(list_of_lists[1:])
 
-    out = (
-        textwrap.dedent(intro).lstrip()
-        + table.get_string()
-        + "\n\n"
-        + timestamp()
-        + "\n"
-    )
-
-    with open("README.md", "w") as f:
-        f.write(out)
+    update_readme(table.get_string())
 
 
 if __name__ == "__main__":
