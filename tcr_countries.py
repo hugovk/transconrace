@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
 """
-Create a Markdown table of countries visited by the Transcontinental Race.
+Create a Markdown table of countries visited by the Transcontinental Race
+and write to README.md.
 
-python tcr_countries.py --flag > README.md
+python tcr_countries.py --flag
 """
 import argparse
 import datetime
 import os
+import textwrap
 
 from prettytable import MARKDOWN, PrettyTable
 
@@ -139,11 +141,10 @@ COUNTRIES = {
 FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
 
 
-def timestamp():
-    """Print a timestamp and the filename with path"""
+def timestamp() -> str:
+    """Create a timestamp and the filename with path"""
     stamp = datetime.datetime.utcnow().strftime("%A, %d %B %Y, %H:%M UTC")
-    print()
-    print(f"Last updated {stamp} by {os.path.basename(__file__)}")
+    return f"Last updated {stamp} by {os.path.basename(__file__)}"
 
 
 def add_total_countries(dict_of_lists):
@@ -231,17 +232,26 @@ if __name__ == "__main__":
     # Rotate list of lists
     list_of_lists = list(map(list, zip(*list_of_lists)))
 
-    print("# Transcontinental Race")
-    print()
-    print(
-        "Countries the [Transcontinental Race](https://www.transcontinental.cc/)"
-        " has collectively visited, roughly in order of first entry.\n"
-    )
+    intro = """
+    # Transcontinental Race
+
+    Countries the [Transcontinental Race](https://www.transcontinental.cc/)
+    has collectively visited, roughly in order of first entry.
+
+    """
 
     table = PrettyTable()
     table.set_style(MARKDOWN)
     table.field_names = list_of_lists[0]
     table.add_rows(list_of_lists[1:])
-    print(table)
 
-    timestamp()
+    out = (
+        textwrap.dedent(intro).lstrip()
+        + table.get_string()
+        + "\n\n"
+        + timestamp()
+        + "\n"
+    )
+
+    with open("README.md", "w") as f:
+        f.write(out)
