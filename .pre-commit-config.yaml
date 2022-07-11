@@ -45,3 +45,6 @@ repos:
         additional_dependencies: [prettytable]
         pass_filenames: false
         files: ^tcr_countries.py$
+
+ci:
+  autoupdate_schedule: quarterly
