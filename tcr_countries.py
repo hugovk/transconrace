@@ -159,12 +159,19 @@ def add_total_countries(dict_of_lists):
     return dict_of_lists
 
 
-def add_flags(dict_of_lists):
-    """Add flag images to countries"""
+def format_countries(dict_of_lists, *, add_flags=False):
+    """Add flag images to countries and italics to very first seen"""
+    seen = set()
     for _, countries in dict_of_lists.items():
         for i, country in enumerate(countries):
-            flag = FLAG.format(country.lower())
-            countries[i] = f"{flag} {country}"
+            flag = FLAG.format(country.lower()) + " " if add_flags else ""
+
+            if country not in seen:
+                # Italicise
+                seen.add(country)
+                country = f"*{country}*"
+
+            countries[i] = f"{flag}{country}"
 
     return dict_of_lists
 
@@ -242,13 +249,11 @@ def main() -> None:
 
     countries = add_total_countries(COUNTRIES)
 
-    if args.flag:
-        countries = add_flags(countries)
+    countries = format_countries(countries, add_flags=args.flag)
 
     list_of_lists = dict_of_lists_to_list_of_lists(countries)
 
     list_of_lists = pad_list_of_lists(list_of_lists)
-    # pprint(list_of_lists)
 
     list_of_lists = add_total_index(list_of_lists)
 
