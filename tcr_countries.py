@@ -134,7 +134,7 @@ COUNTRIES = {
         "XK",
     ],
     "7. 2019": ["BG", "RS", "HR", "XK", "BA", "SI", "AT", "IT", "LI", "CH", "FR", "HU"],
-    "8. 2022": ["BE", "NL", "DE", "CZ", "AT", "IT", "CH", "SI", "HR"],
+    "8. 2022": ["BE", "NL", "DE", "CZ", "AT", "IT", "CH", "SI", "HR", "BA"],
 }
 
 
