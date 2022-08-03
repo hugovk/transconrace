@@ -147,7 +147,7 @@ COUNTRIES = {
         "BA",
         "ME",
         "RS",
-        "RO",
+        "RO", "BG" 
     ],
 }
 
