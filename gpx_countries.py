@@ -10,7 +10,7 @@ import glob
 import json
 import sys
 
-import gpxpy  # # pip install gpxy lxml
+import gpxpy  # pip install gpxy lxml  # (lxml is optional)
 import gpxpy.gpx
 from shapely.geometry import Point, shape  # pip install shapely
 from shapely.prepared import prep

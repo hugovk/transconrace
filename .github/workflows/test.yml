@@ -27,7 +27,7 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install -U wheel
-          python -m pip install -Ur requirements.txt
+          python -m pip install -Ur requirements.txt --only-binary=lxml
 
       - name: Test run
         run: |
