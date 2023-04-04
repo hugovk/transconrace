@@ -54,7 +54,6 @@ def process_gpx(filename):
                     visited.append(country)
                     if args.unique:
                         if new:
-
                             print(f"{len(set(visited)):2d}. {point.time} {country}")
                     else:
                         print(
@@ -87,7 +86,6 @@ def is_bigger(new, max, new_name, max_names):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )

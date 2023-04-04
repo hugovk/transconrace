@@ -233,7 +233,6 @@ def add_total_index(list_of_lists):
 
 
 def update_readme(new_table: str) -> None:
-
     with open("README.md") as f:
         contents = f.read()
 
