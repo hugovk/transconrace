@@ -7,7 +7,7 @@ and write to README.md.
 python tcr_countries.py --flag
 """
 import argparse
-import datetime
+import datetime as dt
 import os
 
 from prettytable import MARKDOWN, PrettyTable
@@ -158,7 +158,7 @@ FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
 
 def timestamp() -> str:
     """Create a timestamp and the filename with path"""
-    stamp = datetime.datetime.utcnow().strftime("%A, %d %B %Y, %H:%M UTC")
+    stamp = dt.datetime.now(dt.timezone.utc).strftime("%A, %d %B %Y, %H:%M UTC")
     return f"Last updated {stamp} by {os.path.basename(__file__)}"
 
 
