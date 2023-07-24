@@ -16,7 +16,7 @@ from prettytable import MARKDOWN, PrettyTable
 
 
 COUNTRIES = {
-    "9. 2023": ["BE", "FR", "LU"],
+    "9. 2023": ["BE", "FR", "LU", "DE"],
     "8. 2022": [
         "BE",
         "NL",
