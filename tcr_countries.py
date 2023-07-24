@@ -4,7 +4,7 @@
 Create a Markdown table of countries visited by the Transcontinental Race
 and write to README.md.
 
-python tcr_countries.py --flag
+python tcr_countries.py
 """
 import argparse
 import datetime as dt
@@ -259,14 +259,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument("-f", "--flag", action="store_true", help="Add a flag image")
+    parser.add_argument(
+        "-f", "--no-flag", action="store_true", help="Don't add flag images"
+    )
     args = parser.parse_args()
 
     countries = dict(sorted(COUNTRIES.items()))
 
     countries = add_total_countries(countries)
 
-    countries = format_countries(countries, add_flags=args.flag)
+    countries = format_countries(countries, add_flags=not args.no_flag)
 
     list_of_lists = dict_of_lists_to_list_of_lists(countries)
 

@@ -40,7 +40,7 @@ repos:
     hooks:
       - id: update-readme
         name: Update README
-        entry: python3 tcr_countries.py --flag
+        entry: python3 tcr_countries.py
         language: python
         additional_dependencies: [prettytable]
         pass_filenames: false
