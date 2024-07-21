@@ -1,4 +1,4 @@
 lxml
 gpxpy
-prettytable
+prettytable>=3.10.1
 shapely
