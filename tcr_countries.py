@@ -16,6 +16,9 @@ from prettytable import MARKDOWN, PrettyTable
 
 
 COUNTRIES = {
+    "10. 2024": [
+        "FR",
+    ],
     "9. 2023": [
         "BE",
         "FR",
@@ -282,7 +285,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    countries = dict(sorted(COUNTRIES.items()))
+    countries = dict(reversed(COUNTRIES.items()))
 
     countries = add_total_countries(countries)
 
