@@ -53,7 +53,7 @@ repos:
         name: Update README
         entry: python3 tcr_countries.py
         language: python
-        additional_dependencies: [prettytable]
+        additional_dependencies: [prettytable>=3.10.1]
         pass_filenames: false
         files: ^tcr_countries.py$
 
