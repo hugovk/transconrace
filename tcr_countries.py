@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 """
 Create a Markdown table of countries visited by the Transcontinental Race
 and write to README.md.
@@ -26,6 +25,7 @@ COUNTRIES = {
         "LU",
         "CH",
         "AT",
+        "IT",
     ],
     "9. 2023": [
         "BE",
