@@ -193,7 +193,8 @@ EDITIONS = {
         "GR",
     ],
 }
-
+editions_type = dict[str, list[str]]
+editions_list_type = list[list[str]]
 
 FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
 
@@ -216,10 +217,10 @@ def add_total_countries(editions: editions_type) -> editions_type:
     return editions
 
 
-def format_countries(dict_of_lists, *, add_flags=False):
+def format_countries(editions: editions_type, *, add_flags=False) -> editions_type:
     """Add flag images to countries and italics to very first seen"""
     seen = set()
-    for _, countries in dict_of_lists.items():
+    for countries in editions.values():
         for i, country in enumerate(countries):
             flag = FLAG.format(country.lower()) + " " if add_flags else ""
 
@@ -230,7 +231,7 @@ def format_countries(dict_of_lists, *, add_flags=False):
 
             countries[i] = f"{flag}{country}"
 
-    return dict_of_lists
+    return editions
 
 
 def dict_of_lists_to_list_of_lists(dict_of_lists):
