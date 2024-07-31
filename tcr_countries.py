@@ -14,9 +14,9 @@ import os
 from prettytable import MARKDOWN, PrettyTable
 
 # from pprint import pprint
+# from rich import print
 
-
-COUNTRIES = {
+EDITIONS = {
     "10. 2024": [
         "FR",
         "BE",
@@ -305,13 +305,13 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    countries = dict(reversed(COUNTRIES.items()))
+    editions = dict(reversed(EDITIONS.items()))
 
-    countries = add_total_countries(countries)
+    editions = add_total_countries(editions)
 
-    countries = format_countries(countries, add_flags=not args.no_flag)
+    editions = format_countries(editions, add_flags=not args.no_flag)
 
-    list_of_lists = dict_of_lists_to_list_of_lists(countries)
+    list_of_lists = dict_of_lists_to_list_of_lists(editions)
 
     list_of_lists = pad_list_of_lists(list_of_lists)
 
