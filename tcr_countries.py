@@ -14,9 +14,9 @@ import os
 from prettytable import MARKDOWN, PrettyTable
 
 # from pprint import pprint
+# from rich import print
 
-
-COUNTRIES = {
+EDITIONS = {
     "10. 2024": [
         "FR",
         "BE",
@@ -193,7 +193,8 @@ COUNTRIES = {
         "GR",
     ],
 }
-
+editions_type = dict[str, list[str]]
+editions_list_type = list[list[str]]
 
 FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
 
@@ -204,22 +205,22 @@ def timestamp() -> str:
     return f"Last updated {stamp} by {os.path.basename(__file__)}"
 
 
-def add_total_countries(dict_of_lists):
-    """Append a list that contains all year's countries, no repeats"""
-    all = []
-    for _, countries in dict_of_lists.items():
+def add_total_countries(editions: editions_type) -> editions_type:
+    """Append a list that contains all editions' countries, no repeats"""
+    all_countries = []
+    for countries in editions.values():
         for country in countries:
-            if country not in all:
-                all.append(country)
-    dict_of_lists["All"] = all
+            if country not in all_countries:
+                all_countries.append(country)
+    editions["All"] = all_countries
 
-    return dict_of_lists
+    return editions
 
 
-def format_countries(dict_of_lists, *, add_flags=False):
+def format_countries(editions: editions_type, *, add_flags=False) -> editions_type:
     """Add flag images to countries and italics to very first seen"""
     seen = set()
-    for _, countries in dict_of_lists.items():
+    for countries in editions.values():
         for i, country in enumerate(countries):
             flag = FLAG.format(country.lower()) + " " if add_flags else ""
 
@@ -230,48 +231,36 @@ def format_countries(dict_of_lists, *, add_flags=False):
 
             countries[i] = f"{flag}{country}"
 
-    return dict_of_lists
+    return editions
 
 
-def dict_of_lists_to_list_of_lists(dict_of_lists):
+def dict_to_list(editions: editions_type) -> editions_list_type:
     """Convert:
     {"1. 2013": ["GB", "FR"], "6. 2018": ["BE", "FR"]}
     into:
     [["1. 2013", "GB, FR"], ["6. 2018", "BE", "FR"]]
     """
-    list_of_lists = []
-
-    for year, countries in dict_of_lists.items():
-        row = [year] + countries
-        list_of_lists.append(row)
-
-    return list_of_lists
+    return [[year] + countries for year, countries in editions.items()]
 
 
-def pad_list_of_lists(list_of_lists):
+def pad_editions_list(editions: editions_list_type) -> editions_list_type:
     """Given lists of different lengths:
     [["GB", "FR", "TR"], ["BE", "SI"]]
     pad the shorter ones:
     [["GB", "FR", "TR"], ["BE", "SI", "  "]]
     """
-    length = 0
     # Find longest list length
-    for list_ in list_of_lists:
-        length = max(len(list_), length)
+    max_length = max(len(edition) for edition in editions)
 
-    new = []
-    for list_ in list_of_lists:
-        # https://stackoverflow.com/a/3438818/724176
-        new.append(list_ + ["  "] * (length - len(list_)))
-
-    return new
+    # https://stackoverflow.com/a/3438818/724176
+    return [edition + ["  "] * (max_length - len(edition)) for edition in editions]
 
 
-def add_total_index(list_of_lists):
+def add_total_index(editions: editions_list_type) -> editions_list_type:
     """Prepend a list like ["", 1, 2, 3, 4]"""
-    numbers = [""] + list(range(1, len(list_of_lists[0]) + 1))
-    list_of_lists.insert(0, numbers)
-    return list_of_lists
+    numbers = [""] + list(range(1, len(editions[0]) + 1))
+    editions.insert(0, numbers)
+    return editions
 
 
 def update_readme(new_table: str) -> None:
@@ -305,25 +294,25 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    countries = dict(reversed(COUNTRIES.items()))
+    editions = dict(reversed(EDITIONS.items()))
 
-    countries = add_total_countries(countries)
+    editions = add_total_countries(editions)
 
-    countries = format_countries(countries, add_flags=not args.no_flag)
+    editions = format_countries(editions, add_flags=not args.no_flag)
 
-    list_of_lists = dict_of_lists_to_list_of_lists(countries)
+    editions_list = dict_to_list(editions)
 
-    list_of_lists = pad_list_of_lists(list_of_lists)
+    editions_list = pad_editions_list(editions_list)
 
-    list_of_lists = add_total_index(list_of_lists)
+    editions_list = add_total_index(editions_list)
 
     # Rotate list of lists
-    list_of_lists = list(map(list, zip(*list_of_lists)))
+    editions_list = list(map(list, zip(*editions_list)))
 
     table = PrettyTable()
     table.set_style(MARKDOWN)
-    table.field_names = list_of_lists[0]
-    table.add_rows(list_of_lists[1:])
+    table.field_names = editions_list[0]
+    table.add_rows(editions_list[1:])
 
     update_readme(table.get_string())
 
