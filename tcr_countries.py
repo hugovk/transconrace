@@ -204,16 +204,16 @@ def timestamp() -> str:
     return f"Last updated {stamp} by {os.path.basename(__file__)}"
 
 
-def add_total_countries(dict_of_lists):
-    """Append a list that contains all year's countries, no repeats"""
-    all = []
-    for _, countries in dict_of_lists.items():
+def add_total_countries(editions: editions_type) -> editions_type:
+    """Append a list that contains all editions' countries, no repeats"""
+    all_countries = []
+    for countries in editions.values():
         for country in countries:
-            if country not in all:
-                all.append(country)
-    dict_of_lists["All"] = all
+            if country not in all_countries:
+                all_countries.append(country)
+    editions["All"] = all_countries
 
-    return dict_of_lists
+    return editions
 
 
 def format_countries(dict_of_lists, *, add_flags=False):
