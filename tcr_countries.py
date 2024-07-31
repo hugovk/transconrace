@@ -243,23 +243,17 @@ def dict_to_list(editions: editions_type) -> editions_list_type:
     return [[year] + countries for year, countries in editions.items()]
 
 
-def pad_list_of_lists(list_of_lists):
+def pad_editions_list(editions: editions_list_type) -> editions_list_type:
     """Given lists of different lengths:
     [["GB", "FR", "TR"], ["BE", "SI"]]
     pad the shorter ones:
     [["GB", "FR", "TR"], ["BE", "SI", "  "]]
     """
-    length = 0
     # Find longest list length
-    for list_ in list_of_lists:
-        length = max(len(list_), length)
+    max_length = max(len(edition) for edition in editions)
 
-    new = []
-    for list_ in list_of_lists:
-        # https://stackoverflow.com/a/3438818/724176
-        new.append(list_ + ["  "] * (length - len(list_)))
-
-    return new
+    # https://stackoverflow.com/a/3438818/724176
+    return [edition + ["  "] * (max_length - len(edition)) for edition in editions]
 
 
 def add_total_index(list_of_lists):
@@ -308,7 +302,7 @@ def main() -> None:
 
     editions_list = dict_to_list(editions)
 
-    editions_list = pad_list_of_lists(editions_list)
+    editions_list = pad_editions_list(editions_list)
 
     editions_list = add_total_index(editions_list)
 
