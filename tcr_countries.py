@@ -234,19 +234,13 @@ def format_countries(editions: editions_type, *, add_flags=False) -> editions_ty
     return editions
 
 
-def dict_of_lists_to_list_of_lists(dict_of_lists):
+def dict_to_list(editions: editions_type) -> editions_list_type:
     """Convert:
     {"1. 2013": ["GB", "FR"], "6. 2018": ["BE", "FR"]}
     into:
     [["1. 2013", "GB, FR"], ["6. 2018", "BE", "FR"]]
     """
-    list_of_lists = []
-
-    for year, countries in dict_of_lists.items():
-        row = [year] + countries
-        list_of_lists.append(row)
-
-    return list_of_lists
+    return [[year] + countries for year, countries in editions.items()]
 
 
 def pad_list_of_lists(list_of_lists):
@@ -312,19 +306,19 @@ def main() -> None:
 
     editions = format_countries(editions, add_flags=not args.no_flag)
 
-    list_of_lists = dict_of_lists_to_list_of_lists(editions)
+    editions_list = dict_to_list(editions)
 
-    list_of_lists = pad_list_of_lists(list_of_lists)
+    editions_list = pad_list_of_lists(editions_list)
 
-    list_of_lists = add_total_index(list_of_lists)
+    editions_list = add_total_index(editions_list)
 
     # Rotate list of lists
-    list_of_lists = list(map(list, zip(*list_of_lists)))
+    editions_list = list(map(list, zip(*editions_list)))
 
     table = PrettyTable()
     table.set_style(MARKDOWN)
-    table.field_names = list_of_lists[0]
-    table.add_rows(list_of_lists[1:])
+    table.field_names = editions_list[0]
+    table.add_rows(editions_list[1:])
 
     update_readme(table.get_string())
 
