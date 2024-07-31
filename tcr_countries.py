@@ -32,7 +32,7 @@ EDITIONS = {
         "LI",
         "BA",
         "ME",
-        "SR",
+        "RS",
         "XK",
         "MK",
         "GR",
