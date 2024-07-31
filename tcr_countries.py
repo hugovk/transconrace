@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import os
+from collections import Counter
 
 from prettytable import MARKDOWN, PrettyTable
 
@@ -293,6 +294,12 @@ def main() -> None:
         "-f", "--no-flag", action="store_true", help="Don't add flag images"
     )
     args = parser.parse_args()
+
+    for year, countries in EDITIONS.items():
+        assert len(countries) == len(set(countries)), (
+            f"Duplicate countries for {year}: "
+            f"{[country for country, count in Counter(countries).items() if count > 1]}"
+        )
 
     editions = dict(reversed(EDITIONS.items()))
 
