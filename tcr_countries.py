@@ -256,11 +256,11 @@ def pad_editions_list(editions: editions_list_type) -> editions_list_type:
     return [edition + ["  "] * (max_length - len(edition)) for edition in editions]
 
 
-def add_total_index(list_of_lists):
+def add_total_index(editions: editions_list_type) -> editions_list_type:
     """Prepend a list like ["", 1, 2, 3, 4]"""
-    numbers = [""] + list(range(1, len(list_of_lists[0]) + 1))
-    list_of_lists.insert(0, numbers)
-    return list_of_lists
+    numbers = [""] + list(range(1, len(editions[0]) + 1))
+    editions.insert(0, numbers)
+    return editions
 
 
 def update_readme(new_table: str) -> None:
