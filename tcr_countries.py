@@ -12,7 +12,7 @@ import datetime as dt
 import os
 from collections import Counter
 
-from prettytable import MARKDOWN, PrettyTable
+from prettytable import PrettyTable, TableStyle
 
 # from pprint import pprint
 # from rich import print
@@ -317,7 +317,7 @@ def main() -> None:
     editions_list = list(map(list, zip(*editions_list)))
 
     table = PrettyTable()
-    table.set_style(MARKDOWN)
+    table.set_style(TableStyle.MARKDOWN)
     table.field_names = editions_list[0]
     table.add_rows(editions_list[1:])
 
