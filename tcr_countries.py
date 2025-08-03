@@ -18,6 +18,11 @@ from prettytable import PrettyTable, TableStyle
 # from rich import print
 
 EDITIONS = {
+    "11. 2025": [
+        "ES",
+        "FR",
+        "IT",
+    ],
     "10. 2024": [
         "FR",
         "BE",
