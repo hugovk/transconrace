@@ -5,6 +5,7 @@ List all the countries visited by a GPX track.
 
 python gpx_countries.py route.gpx
 """
+
 from __future__ import annotations
 
 import argparse
