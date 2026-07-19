@@ -19,7 +19,7 @@ from prettytable import PrettyTable, TableStyle
 # from rich import print
 
 EDITIONS = {
-        "12. 2026": [
+    "12. 2026": [
         "NO",
     ],
     "11. 2025": [
