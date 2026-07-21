@@ -21,6 +21,7 @@ from prettytable import PrettyTable, TableStyle
 EDITIONS = {
     "12. 2026": [
         "NO",
+        "SE",
     ],
     "11. 2025": [
         "ES",
