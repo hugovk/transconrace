@@ -1,6 +1,6 @@
 # Transcontinental Race
 
-Countries the [Transcontinental Race](https://www.transcontinental.cc/)
+Countries the [Transcontinental Race](https://www.lostdot.cc/tcr)
 has collectively visited, roughly in order of first entry. Italics for
 very first visit.
 
