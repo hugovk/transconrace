@@ -227,7 +227,7 @@ EDITIONS = {
 editions_type = dict[str, list[str]]
 editions_list_type = list[list[str]]
 
-FLAG = "![](https://hugovk.github.io/flag-icon/png/16/country-4x3/{}.png)"
+FLAG = "![](https://hugovk.dev/flag-icon/png/16/country-4x3/{}.png)"
 
 
 def timestamp() -> str:
